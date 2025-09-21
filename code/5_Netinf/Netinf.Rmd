@@ -1,0 +1,77 @@
+---
+title: "Netinf"
+author: "María Cavero"
+date: "2025-06-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+if(!require('NetworkInference')) {
+    install.packages('NetworkInference')
+    library('NetworkInference')
+}
+```
+
+# Datos
+
+```{r}
+library(readr)
+
+df <- read_csv("../../data/netinf_data.csv")
+head(df)
+```
+
+```{r}
+cascades <- as_cascade_long(df,
+                            cascade_id = "cascade_id",
+                            cascade_node_name = "node_name",
+                            event_time = "earliest_date")
+```
+
+# 1er set de hiperparámetros
+
+```{r}
+result <- netinf(cascades, trans_mod = "exponential", p_value_cutoff = 0.05,
+                 quiet = FALSE)
+```
+
+```{r}
+head(result)
+```
+
+```{r}
+write.csv(
+  result,
+  file = "../../data/result_graph_exp_p05.csv",
+  row.names = FALSE
+)
+```
+
+# 2o set de hiperparámetros
+
+```{r}
+n <- 4271
+```
+
+```{r}
+# Número de ejes = max nº ejes netinf
+result <- netinf(cascades, trans_mod = "exponential", n_edges = n,
+                 quiet = FALSE)
+```
+
+```{r}
+head(result)
+```
+
+```{r}
+write.csv(
+  result,
+  file = "../../data/result_graph_nedges.csv",
+  row.names = FALSE
+)
+```
+
