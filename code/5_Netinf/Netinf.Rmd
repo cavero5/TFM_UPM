@@ -58,7 +58,7 @@ n <- 4271
 ```
 
 ```{r}
-# Número de ejes = max nº ejes netinf
+# Número de ejes que imite la densidad de un grafo de Retweets
 result <- netinf(cascades, trans_mod = "exponential", n_edges = n,
                  quiet = FALSE)
 ```
