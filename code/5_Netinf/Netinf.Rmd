@@ -54,7 +54,7 @@ write.csv(
 # 2o set de hiperparámetros
 
 ```{r}
-n <- 5845
+n <- 8231
 ```
 
 ```{r}
